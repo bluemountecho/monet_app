@@ -18,9 +18,9 @@ function calcFee(x) {
     if (x < 10) return 0.05 * x
     if (x < 30) return 0.1 * x
     if (x < 50) return 0.2 * x
-    if (x < 60) return 0.25 * Math.sqrt(x)
+    if (x < 60) return 0.25 * Math.sqrt(x) * 10
     
-    return 0.5 * Math.sqrt(x)
+    return 0.5 * Math.sqrt(x) * 10
 }
 
 export default function Product(props) {
@@ -42,8 +42,16 @@ export default function Product(props) {
         'Privacy Violation',
     ]
 
+    const links = [
+        '0x9C0...b479',
+        '0xac8...72aA',
+        '0xFcc...00de',
+        '0x56B...127a',
+        '0x313...aaC0',
+    ]
+
     const apy = calcAPY(mtz + (boostAmount ? parseFloat(boostAmount) : 0))
-    const fee = calcFee(calcAPY(mtz + (boostAmount ? parseFloat(boostAmount) : 0))) * boostAmount / 100
+    const fee = calcFee(apy) * boostAmount / 100
 
     return (
         <>
@@ -161,7 +169,7 @@ export default function Product(props) {
                             </tr>
                             {metrics.map((value, key) => {
                                 return <tr>
-                                    <td>{key + 1}</td>
+                                    <td>{links[key]}</td>
                                     <td>{numberWithCommas(value)}</td>
                                     <td>{numberWithCommas(value / clicks * mtz)} MTZ</td>
                                     <td>${(value / clicks * mtz * mtzAmount).toFixed(1)}</td>
