@@ -146,6 +146,7 @@ export default function Product(props) {
                             <div className={ styles.border7 }></div>
                             <div className={ styles.border8 }></div>
                         </>}
+                        <h1 className={ styles.descriptionTitle }>Description</h1>
                         {description}
                     </div>
                 </p>

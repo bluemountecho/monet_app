@@ -410,3 +410,10 @@
 .visitProductPage:hover {
   text-decoration: underline;
 }
+
+.descriptionTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 10px;
+}
