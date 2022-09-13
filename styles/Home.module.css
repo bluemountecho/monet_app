@@ -322,7 +322,7 @@
   position: absolute;
   top: 0px;
   left: 130px;
-  width: calc(100% - 130px);
+  width: calc(100% - 128px);
   height: 20px;
   border-radius: 10px;
   border-top: 2px solid #82dea0;
@@ -332,7 +332,7 @@
   position: absolute;
   left: 0px;
   bottom: 0px;
-  width: calc(100%);
+  width: calc(100% + 2px);
   height: 20px;
   border-radius: 10px;
   border-bottom: 2px solid #82dea0;
@@ -367,6 +367,36 @@
   height: 117px;
   border-top-left-radius: 10px;
   border-left: 2px solid #82dea0;
+}
+
+.productDesc .border6 {
+  position: absolute;
+  left: 130px;
+  bottom: 0px;
+  height: 20px;
+  width: calc(100% - 128px);
+  border-radius: 10px;
+  border-bottom: 2px solid #82dea0;
+}
+
+.productDesc .border7 {
+  position: absolute;
+  left: 130px;
+  top: 0px;
+  width: 20px;
+  height: 100%;
+  border-radius: 10px;
+  border-left: 2px solid #82dea0;
+}
+
+.productDesc .border8 {
+  position: absolute;
+  left: 130px;
+  top: 0px;
+  height: 20px;
+  width: calc(100% - 128px);
+  border-radius: 10px;
+  border-top: 2px solid #82dea0;
 }
 
 .visitProductPage {
