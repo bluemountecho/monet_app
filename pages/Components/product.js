@@ -1,6 +1,6 @@
 import styles from '../../styles/Home.module.css'
 import Modal from './modal'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -32,7 +32,9 @@ export default function Product(props) {
     const [inUSDT, setInUSDT] = useState(false)
     const [boostAmount, setBoostAmount] = useState(0)
     const [options, setOptions] = useState([false, false, false, false, false, false])
-    const {title, description, business, mtz, clicks, mlink, metrics, mtzAmount, products, setProducts} = props
+    const [borderType, setBorderType] = useState(false)
+    const [description, setDescription] = useState(props.description)
+    const {title, business, mtz, clicks, mlink, metrics, mtzAmount, products, setProducts, image} = props
     const flagOptions = [
         'Targeted Harassment',
         'Illegal Activity',
@@ -52,6 +54,19 @@ export default function Product(props) {
 
     const apy = calcAPY(mtz + (boostAmount ? parseFloat(boostAmount) : 0))
     const fee = calcFee(apy) * boostAmount / 100
+    const pRef = useRef();
+
+    useEffect(() => {
+        if (!pRef.current) {
+            setDescription(props.description)
+        }
+    }, [description, pRef.current])
+    
+    if (pRef.current) {
+        const newHeight = pRef.current.clientHeight;
+
+        if (borderType == false && newHeight > 122) setBorderType(true)
+    } 
 
     return (
         <>
@@ -60,8 +75,7 @@ export default function Product(props) {
                     <tbody>
                         <tr>
                             <td rowSpan="2" width="60" style={{verticalAlign: 'top'}}>
-                                <div className={styles.productImage} onClick={e => setShowProModal(true)}>
-                                    Image
+                                <div className={styles.productImage} onClick={e => setShowProModal(true)} style={{backgroundImage: 'url(' + image + ')', backgroundSize: 'cover', backgroundPosition: 'center'}}>
                                 </div>
                             </td>
                             <td colSpan="3" style={{verticalAlign: 'top', cursor: 'pointer'}} onClick={e => setShowProModal(true)} className={styles.productTitle}>
@@ -107,21 +121,30 @@ export default function Product(props) {
             </Modal>}
             {showProModal &&
             <Modal title={<>{title}<a href="https://mtztoken.com" target="_blank"><div className={styles.business}>({business})</div></a><br/></>} modalFunc={setShowProModal}>
-                <div className={styles.productImage + ' ' + styles.productDetailImage} onClick={e => setShowProModal(true)}>
-                    Image
+                <div className={styles.productImage + ' ' + styles.productDetailImage} style={{backgroundImage: 'url(' + image + ')', backgroundSize: 'cover', backgroundPosition: 'center'}} onClick={e => setShowProModal(true)}>
+                    <a className={ styles.visitProductPage } href="https://mtztoken.com" target="_blank" >Visit Product Page</a>
                 </div>
                 <p className={styles.productDescription}>
                     <div>
-                        <div className={styles.socialIcon}></div>
-                        <div className={styles.socialIcon}></div>
-                        <div className={styles.socialIcon}></div>
-                        <div className={styles.socialIcon}></div>
-                        <div className={styles.socialIcon}></div>
-                        <div className={styles.socialIcon}></div>
+                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/fblogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/twitterlogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/telegramlogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/truthsociallogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/gettrlogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/mindslogocrp.png)'}} className={styles.socialIcon}></a>
                     </div>
-                    {description}
+                    <div className={ styles.productDesc } ref={pRef}>
+                        {borderType && <>
+                            <div className={ styles.border1 }></div>
+                            <div className={ styles.border2 }></div>
+                            <div className={ styles.border3 }></div>
+                            <div className={ styles.border4 }></div>
+                            <div className={ styles.border5 }></div>
+                        </>}
+                        {description}
+                    </div>
                 </p>
-                <div style={{marginTop: '10px', height: '30px'}}>
+                <div style={{marginTop: '20px', height: '30px'}}>
                     <button className={styles.bigButton} style={{float: 'left'}} onClick={e => setShowGenModal(true)}>Generate M-Link</button>
                     <button className={styles.bigButton} style={{float: 'right'}} onClick={e => {
                         setShowBoostModal(true)
@@ -130,13 +153,22 @@ export default function Product(props) {
                 </div>
                 <div style={{marginTop: '10px', height: '57px'}}>
                     <div className={styles.modalHeader} style={{float: 'left', textAlign: 'left', fontSize: '14px'}}>
-                        Per-Click Rewards:<br/>{inUSDT == false ? (mtz / clicks).toFixed(2) : (mtz / clicks * mtzAmount).toFixed(4) } {inUSDT == false ? 'MTZ' : 'USDT'} ( <a className={styles.business} onClick={e => {
-                            setInUSDT(!inUSDT)
-                        }}>{inUSDT == false ? 'in USDT' : 'in MTZ'}</a> )
+                        <div>Per-Click Rewards:</div>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            {inUSDT == false ? (mtz / clicks).toFixed(2) : (mtz / clicks * mtzAmount).toFixed(4) } {inUSDT == false ? 'MTZ' : 'USDT'} (&nbsp;<label className="checkbox-container" onClick={e => {
+                                e.preventDefault()
+                                setInUSDT(!inUSDT)
+                            }}>USDT
+                                {inUSDT ? <input type="checkbox" checked /> : <input type="checkbox" /> }
+                                <span className="checkmark"></span>
+                            </label>&nbsp;)
+                        </div>
                     </div>
                     <div className={styles.modalHeader} style={{float: 'right', textAlign: 'right', fontSize: '14px'}}>
                         Boost APY:<br/>{calcAPY(mtz).toFixed(1)}%<br/>
-                        <a className={styles.business} style={{fontWeight: '200'}} onClick={e => setShowFlagModal(true)}>Flag Options</a>
+                        <a className={styles.business} style={{fontWeight: '200'}} onClick={e => setShowFlagModal(true)}>
+                            <img style={{width: '18px'}} src="/icons/flagicon.png" />
+                        </a>
                     </div>
                 </div>
                 {viewMore == false &&
