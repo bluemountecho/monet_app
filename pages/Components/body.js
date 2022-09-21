@@ -25,7 +25,7 @@ export default function Body(props) {
   return (
     <div className={styles.body}>
       {products.map((value, key) => {
-        return <Product {...value} mtzAmount={mtzAmount} products={products} setProducts={setProducts} />
+        return <Product key={key} {...value} mtzAmount={mtzAmount} products={products} setProducts={setProducts} />
       })}
     </div>
   )

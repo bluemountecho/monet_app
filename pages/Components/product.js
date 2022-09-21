@@ -87,7 +87,7 @@ export default function Product(props) {
                         </tr>
                         <tr>
                             <td width="80" style={{verticalAlign: 'bottom'}}>
-                                <a href="https://mtztoken.com" target="_blank"><small className={styles.small + ' ' + styles.business}>{business}</small></a>
+                                <a href="https://mtztoken.com" target="_blank" rel="noreferrer"><small className={styles.small + ' ' + styles.business}>{business}</small></a>
                             </td>
                             <td width="50" style={{verticalAlign: 'bottom'}}>
                                 <small className={styles.small}>Per-Click<br/>Rewards<br/>{(mtz / clicks).toFixed(2)} MTZ</small>
@@ -120,18 +120,18 @@ export default function Product(props) {
                 </div>
             </Modal>}
             {showProModal &&
-            <Modal title={<>{title}<a href="https://mtztoken.com" target="_blank"><div className={styles.business}>({business})</div></a><br/></>} modalFunc={setShowProModal}>
+            <Modal title={<>{title}<a href="https://mtztoken.com" target="_blank" rel="noreferrer"><div className={styles.business}>({business})</div></a><br/></>} modalFunc={setShowProModal}>
                 <div className={styles.productImage + ' ' + styles.productDetailImage} style={{backgroundImage: 'url(' + image + ')', backgroundSize: 'cover', backgroundPosition: 'center'}} onClick={e => setShowProModal(true)}>
-                    <a className={ styles.visitProductPage } href="https://mtztoken.com" target="_blank" >Visit Product Page</a>
+                    <a className={ styles.visitProductPage } href="https://mtztoken.com" target="_blank" rel="noreferrer" >Visit Product Page</a>
                 </div>
                 <p className={styles.productDescription}>
                     <div>
-                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/fblogo.png)'}} className={styles.socialIcon}></a>
-                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/twitterlogo.png)'}} className={styles.socialIcon}></a>
-                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/telegramlogo.png)'}} className={styles.socialIcon}></a>
-                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/truthsociallogo.png)'}} className={styles.socialIcon}></a>
-                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/gettrlogo.png)'}} className={styles.socialIcon}></a>
-                        <a href="https://mtztoken.com" target="_blank" style={{backgroundImage: 'url(/icons/mindslogocrp.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" rel="noreferrer" style={{backgroundImage: 'url(/icons/fblogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" rel="noreferrer" style={{backgroundImage: 'url(/icons/twitterlogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" rel="noreferrer" style={{backgroundImage: 'url(/icons/telegramlogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" rel="noreferrer" style={{backgroundImage: 'url(/icons/truthsociallogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" rel="noreferrer" style={{backgroundImage: 'url(/icons/gettrlogo.png)'}} className={styles.socialIcon}></a>
+                        <a href="https://mtztoken.com" target="_blank" rel="noreferrer" style={{backgroundImage: 'url(/icons/mindslogocrp.png)'}} className={styles.socialIcon}></a>
                     </div>
                     <div className={ styles.productDesc } ref={pRef}>
                         {borderType && <>
@@ -206,7 +206,7 @@ export default function Product(props) {
                                 <td>Rewards in USD</td>
                             </tr>
                             {metrics.map((value, key) => {
-                                return <tr>
+                                return <tr key={key}>
                                     <td>{links[key]}</td>
                                     <td>{numberWithCommas(value)}</td>
                                     <td>{numberWithCommas(value / clicks * mtz)} MTZ</td>
@@ -231,7 +231,7 @@ export default function Product(props) {
                                         setShowBoostModal(false)
                                         setShowProModal(true)
                                     }}>{title}</div>
-                                    <a href="https://mtztoken.com" target="_blank"><div className={styles.business}>({business})</div></a>
+                                    <a href="https://mtztoken.com" target="_blank" rel="noreferrer"><div className={styles.business}>({business})</div></a>
                                 </td>
                                 <td>
                                     <small>Amount<br/>(MTZ)</small>

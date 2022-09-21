@@ -2,11 +2,13 @@
   "name": "monet_app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://mtztoken.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "npm run build && next export -o _static"
   },
   "dependencies": {
     "next": "12.2.4",
